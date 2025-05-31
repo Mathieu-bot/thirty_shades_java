@@ -37,7 +37,6 @@ public class StringManipulation {
                     System.out
             );
         }
-
         return sb.toString();
     }
 
@@ -45,13 +44,14 @@ public class StringManipulation {
         List<String> result = new ArrayList<String>();
         String[] words = s.split(" ");
         for (String word : words) {
-            result.add(reverseWord(word));
-            System.out.println(result);
+            StringBuilder sb = new StringBuilder(word);
+            sb.reverse();
+            result.add(sb.toString());
         }
         return String.join(" ", result);
     }
 
     public static void main(String[] args) {
-        System.out.println(reverseWord("abc def ghi"));
+        System.out.println(slice("abc def ghi", 0, 3));
     }
 }
