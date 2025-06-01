@@ -60,8 +60,6 @@ public class StringManipulation {
 		return sb.toString();
 	}
 
-
-
 	public static void main(String[] args) {
 		System.out.println(alternate("jri", "adn"));
 	}
