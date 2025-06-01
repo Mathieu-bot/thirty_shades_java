@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringManipulation {
@@ -60,7 +61,20 @@ public class StringManipulation {
 		return sb.toString();
 	}
 
+	static String[] splice(String[] words, int start, int n) {
+
+		List<String> result = new ArrayList<>(Arrays.stream(words).toList());
+		try {
+      if (n >= start) {
+        result.subList(start, n + 1).clear();
+      }
+		} catch (IndexOutOfBoundsException _) {
+			System.out.println("Index out of bounds");
+		}
+		return result.toArray(new String[0]);
+	}
 	public static void main(String[] args) {
 		System.out.println(alternate("jri", "adn"));
+		System.out.println(Arrays.toString(splice(new String[] {"a", "b", "c", "d"}, 1, 2)));
 	}
 }
