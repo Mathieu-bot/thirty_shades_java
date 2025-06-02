@@ -60,21 +60,29 @@ public class StringManipulation {
 		}
 		return sb.toString();
 	}
-
 	static String[] splice(String[] words, int start, int n) {
-
-		List<String> result = new ArrayList<>(Arrays.stream(words).toList());
-		try {
-      if (n >= start) {
-        result.subList(start, n + 1).clear();
-      }
-		} catch (IndexOutOfBoundsException _) {
-			System.out.println("Index out of bounds");
-		}
-		return result.toArray(new String[0]);
+		return splice(words, start, n, null);
 	}
+
+	static String[] splice(String[] words, int start, int n, String[] newWords) {
+		List<String> result = new ArrayList<>(Arrays.asList(words));
+		try {
+			if (n >= start) {
+				result.subList(start, n + 1).clear();
+				if (newWords != null) {
+					for (int i = 0; i < newWords.length; i++) {
+						result.add(start + i, newWords[i]);
+					}
+				}
+			}
+			return result.toArray(new String[0]);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Index out of bounds");
+			return null;
+		}
+	}
+
 	public static void main(String[] args) {
-		System.out.println(alternate("jri", "adn"));
-		System.out.println(Arrays.toString(splice(new String[] {"a", "b", "c", "d"}, 1, 2)));
+		System.out.println(Arrays.toString(splice(new String[] {"a", "b", "c", "d"}, 1, 1)));
 	}
 }
