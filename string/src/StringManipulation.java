@@ -60,6 +60,7 @@ public class StringManipulation {
 		}
 		return sb.toString();
 	}
+
 	static String[] splice(String[] words, int start, int n) {
 		return splice(words, start, n, null);
 	}
