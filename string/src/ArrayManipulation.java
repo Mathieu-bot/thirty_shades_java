@@ -2,6 +2,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ArrayManipulation {
+  public static int ofList(List<Integer> list){
+    return list.stream().reduce(1,(a,b)->a*b);
+  }
+
   static int[] removeFirstSmallest(int[] arr) {
     if (arr == null || arr.length == 0 || arr.length == 1) return new int[0];
     int min = arr[0];
@@ -62,19 +66,25 @@ public class ArrayManipulation {
     return res;
   }
 
-  static List<Integer> arraysDifference(List<Integer> arr1, List<Integer> arr2) {
+  static List<Integer> arraysDiff(List<Integer> arr1, List<Integer> arr2) {
     if (arr1 == null || arr2 == null) throw new IllegalArgumentException("The given arrays must not be null");
     if (arr1.isEmpty()) return Collections.emptyList();
     if (arr2.isEmpty()) return arr1;
-    return arr1.stream().filter(el -> !arr2.contains(el)).collect(Collectors.toList());
+    return arr1.stream().filter(el -> !arr2.contains(el)).toList();
   }
 
-//  static int[] arraysDifference(int[] arr1, int[] arr2) {
-//    if (arr1 == null || arr2 == null) throw new IllegalArgumentException("The given arrays must not be null");
-//    if (arr1.length == 0) return new int[0];
-//    if (arr2.length == 0) return arr1;
-//    return
-//  }
+  static int[] arraysDiff(int[] arr1, int[] arr2) {
+    if (arr1 == null || arr2 == null) throw new IllegalArgumentException("The given arrays must not be null");
+    if (arr1.length == 0) return new int[0];
+    if (arr2.length == 0) return arr1;
+    List<Integer> list2 = Arrays.stream(arr2)
+      .boxed() // boxed : int -> Integer, car List<int> est interdit
+      .toList();
+
+    return Arrays.stream(arr1)
+      .filter(value -> !list2.contains(value))
+      .toArray();
+  }
 
 
 
@@ -83,7 +93,8 @@ public class ArrayManipulation {
     System.out.println(removeFirstSmallest(List.of()));
     System.out.println(Arrays.deepToString(matrices(new int[][] {{1, 2}, {1, 3}}, new int[][] {{2, 4}, {3, 5}})));
     System.out.println(matrices(List.of(List.of(1, 2, 0), List.of(4, 3, -1)), List.of(List.of(5, 2, 3), List.of(1, 3, 4))));
-    System.out.println(arraysDifference(List.of(), List.of()));
-    System.out.println(Arrays.toString(arraysDifference(new int[] {1, 2, 3}, new int[] {1, 3})));
+    System.out.println(arraysDiff(List.of(1,2,3,4), List.of(1,3)));
+    System.out.println(Arrays.toString(arraysDiff(new int[] {1, 2, 3, 4}, new int[] {1, 3})));
+    System.out.println(ofList(Arrays.asList(1, 4, 7, 2)));
   }
 }
